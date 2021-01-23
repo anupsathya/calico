@@ -13,3 +13,8 @@ function moveBackward(a) {
 }, a);
   analogWrite(D25, 1);
 }
+
+function locoStop() {
+ D24.write(0);
+  D25.write(0);
+}
