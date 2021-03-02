@@ -1,7 +1,5 @@
 function hallEffectTest() {
   pinMode(D5, "input_pullup");
-  D25.write(0);
-  D24.write(0);
   setInterval(function () {
     var x = analogRead(D5);
     console.log(x);
@@ -28,3 +26,28 @@ function locoStop() {
   D24.write(0);
   D25.write(0);
 }
+
+function mf() {
+  D24.write(1);
+  D25.write(0);
+}
+
+function readHall() {
+  var x = analogRead(D5);
+  return x;
+}
+
+function mt1() {
+  setWatch(function () { 
+    console.log("yup"); 
+    locoStop(); 
+    clearWatch(); }, D7, { repeat: true, edge: 'falling' });
+}
+
+function stopAtHall() {
+  mf();
+  mt1();
+}
+
+pinMode(D7, "input_pullup");
+
