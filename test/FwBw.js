@@ -32,6 +32,11 @@ function mf() {
   D25.write(0);
 }
 
+function mb() {
+  D24.write(0);
+  D25.write(1);
+}
+
 function readHall() {
   var x = analogRead(D5);
   return x;
