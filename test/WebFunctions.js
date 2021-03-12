@@ -1,5 +1,7 @@
+var speedx;
+
 function formChanged()
 {
-var speedx = document.getElementsByName("speed")[0].value;
+window.speedx = document.getElementsByName("speed")[0].value;
 console.log(speedx);
 }

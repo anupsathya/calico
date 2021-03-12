@@ -1,7 +1,7 @@
 function hallEffectTest() {
-  pinMode(D5, "input_pullup");
+  pinMode(D8, "input_pullup");
   setInterval(function () {
-    var x = analogRead(D5);
+    var x = analogRead(D8);
     console.log(x);
   }, 100);
 }
@@ -42,17 +42,48 @@ function readHall() {
   return x;
 }
 
-function mt1() {
+function mtf() {
   setWatch(function () { 
     console.log("yup"); 
     locoStop(); 
     clearWatch(); }, D7, { repeat: true, edge: 'falling' });
 }
 
-function stopAtHall() {
+function mtb() {
+  setWatch(function () { 
+    console.log("yup"); 
+    locoStop(); 
+    clearWatch(); }, D8, { repeat: true, edge: 'falling' });
+}
+
+function stopAtHallff() {
   mf();
-  mt1();
+  mtf();
+}
+
+function stopAtHallfb() {
+  mb();
+  mtf();
+}
+
+function stopAtHallbf() {
+  mf();
+  mtb();
+}
+
+function stopAtHallbb() {
+  mb();
+  mtb();
+}
+
+function notification(a) {
+  setInterval(function () {
+    moveForward(30);
+    setTimeout('moveBackward(30);',40);
+  }, 100);
+  setTimeout('clearInterval(); locoStop();', a);
 }
 
 pinMode(D7, "input_pullup");
+pinMode(D8, "input_pullup");
 

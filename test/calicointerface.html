@@ -6,8 +6,8 @@
   <script src="/Users/anupsathya/Research/calico/test/WebFunctions.js"></script>
   <script src="/Users/anupsathya/Research/calico/test/GraphTraversal.js"></script>
   <script src="/Users/anupsathya/Research/calico/test/KeyControl.js"></script>
-  <button onclick="console.log('moving'); UART.write('moveForward(speedx);\n'); ">Forward</button>
-  <button onclick="UART.write('moveBackward(speed);\n');">Backward</button>
+  <button onclick="console.log('moving'); UART.write(`moveForward(${speedx});\n`); ">Forward</button>
+  <button onclick="UART.write(`moveBackward(${speedx});\n`);">Backward</button>
   <form>
     Speed <input type="text" name="speed" onkeyup="formChanged()" onchange="formChanged()" value="0">
     <br>
