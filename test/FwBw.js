@@ -32,6 +32,11 @@ function mf() {
   D25.write(0);
 }
 
+function mtable() {
+  analogWrite(D22, 1);
+  D23.write(0);
+}
+
 function mb() {
   D24.write(0);
   D25.write(1);
@@ -43,17 +48,29 @@ function readHall() {
 }
 
 function mtf() {
+  // battery side hall
   setWatch(function () { 
     console.log("yup"); 
-    locoStop(); 
+    locoStop();
+    D22.write(0);
     clearWatch(); }, D7, { repeat: true, edge: 'falling' });
 }
 
+var flag = 1;
+var less;
+
 function mtb() {
+  // pcb side hall
   setWatch(function () { 
-    console.log("yup"); 
-    locoStop(); 
-    clearWatch(); }, D8, { repeat: true, edge: 'falling' });
+    console.log(flag);
+    if (flag >= less)
+    {
+      locoStop();
+      clearWatch();
+      flag = 0;
+    }
+    flag = flag + 1;
+     }, D8, { repeat: true, edge: 'falling' });
 }
 
 function stopAtHallff() {
@@ -66,14 +83,16 @@ function stopAtHallfb() {
   mtf();
 }
 
-function stopAtHallbf() {
+function stopAtHallbf(x) {
   mf();
   mtb();
+  less = x;
 }
 
-function stopAtHallbb() {
+function stopAtHallbb(x) {
   mb();
   mtb();
+  less = x;
 }
 
 function notification(a) {
@@ -82,6 +101,11 @@ function notification(a) {
     setTimeout('moveBackward(30);',40);
   }, 100);
   setTimeout('clearInterval(); locoStop();', a);
+}
+
+function turntable() {
+  mtable();
+  mtf();
 }
 
 pinMode(D7, "input_pullup");

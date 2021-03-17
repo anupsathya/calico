@@ -1,9 +1,7 @@
 let graph = {
-	left_wrist: { left_elbow: 1},
-	left_elbow: { left_wrist: 1, left_shoulder: 1},
-	left_shoulder: { left_elbow: 1, left_chest: 1, back: 1},
-	left_chest: { belly: 1, left_shoulder: 1 },
-    belly: {},
+	left_wrist: { left_forearm: 1},
+	left_forearm: { left_wrist: 1, left_elbow: 1},
+    left_elbow: {},
 };
 
 let shortestDistanceNode = (distances, visited) => {
@@ -92,7 +90,22 @@ let findShortestPath = (graph, startNode, endNode) => {
     return results;
 };
 
-previousNode = "left_wrist";
-shortestPath = findShortestPath(graph, "left_wrist", "belly");
-shortestPathString = JSON.stringify(shortestPath.path);
-pathPresence = shortestPathString.search(previousNode);
+// previousNode = "left_wrist";
+// shortestPath = findShortestPath(graph, "left_wrist", "belly");
+// shortestPathString = JSON.stringify(shortestPath.path);
+// pathPresence = shortestPathString.search(previousNode);
+
+var current_node_temp;
+var destination_node;
+
+function selector(btn) {
+    current_node_temp = btn.id;
+}
+
+function destinationSelector(btn) {
+    destination_node = current_node_temp;
+    var foundPath = findShortestPath(graph, current_node, destination_node);
+    var traversalLength = foundPath.path.length;
+    console.log(foundPath);
+    console.log(traversalLength);
+}
