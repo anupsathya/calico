@@ -47,49 +47,81 @@ function readHall() {
   return x;
 }
 
-function mtf() {
-  // battery side hall
-  setWatch(function () { 
-    console.log("yup"); 
-    locoStop();
-    D22.write(0);
-    clearWatch(); }, D7, { repeat: true, edge: 'falling' });
-}
-
 var flag = 1;
 var less;
 
-function mtb() {
-  // pcb side hall
-  setWatch(function () { 
+function mtf() {
+  // battery side hall
+  setWatch(function () {
     console.log(flag);
-    if (flag >= less)
-    {
+    if (flag >= less) {
       locoStop();
+      D22.write(0);
       clearWatch();
       flag = 0;
+      Bluetooth.println("Reached");
     }
     flag = flag + 1;
-     }, D8, { repeat: true, edge: 'falling' });
+  }, D7, { repeat: true, edge: 'falling' });
 }
 
-function stopAtHallff() {
+function mtftable() {
+  // battery side hall
+  setWatch(function () {
+    console.log("yup");
+    D22.write(0);
+    clearWatch();
+  }, D7, { repeat: true, edge: 'falling' });
+}
+
+function mtbtable() {
+  // PCB side hall
+  setWatch(function () {
+    console.log("yup");
+    D22.write(0);
+    clearWatch();
+  }, D8, { repeat: true, edge: 'falling' });
+}
+
+
+function mtb() {
+  // pcb side hall
+  setWatch(function () {
+    console.log(flag);
+    if (flag >= less) {
+      locoStop();
+      D22.write(0);
+      clearWatch();
+      flag = 0;
+      Bluetooth.println("Reached");
+    }
+    flag = flag + 1;
+  }, D8, { repeat: true, edge: 'falling' });
+}
+
+function stopAtHallff(x) {
+  // PCB side Hall, PCB side move
   mf();
   mtf();
+  less = x;
 }
 
-function stopAtHallfb() {
+function stopAtHallfb(x) {
+  // PCB side Hall, Battery side move
   mb();
   mtf();
+  less = x;
 }
 
 function stopAtHallbf(x) {
+  // Battery side hall, PCB side move
   mf();
   mtb();
   less = x;
 }
 
 function stopAtHallbb(x) {
+  // Battery side Hall, battery side move
   mb();
   mtb();
   less = x;
@@ -98,14 +130,21 @@ function stopAtHallbb(x) {
 function notification(a) {
   setInterval(function () {
     moveForward(30);
-    setTimeout('moveBackward(30);',40);
+    setTimeout('moveBackward(30);', 40);
   }, 100);
   setTimeout('clearInterval(); locoStop();', a);
 }
 
-function turntable() {
+function turntablef() {
+  // PCB side
   mtable();
-  mtf();
+  mtftable();
+}
+
+function turntableb() {
+  // Battery side
+  mtable();
+  mtbtable();
 }
 
 pinMode(D7, "input_pullup");

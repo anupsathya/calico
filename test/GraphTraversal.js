@@ -1,7 +1,7 @@
 let graph = {
 	left_wrist: { left_forearm: 1},
 	left_forearm: { left_wrist: 1, left_elbow: 1},
-    left_elbow: {},
+    left_elbow: { left_forearm: 1},
 };
 
 let shortestDistanceNode = (distances, visited) => {
@@ -97,6 +97,8 @@ let findShortestPath = (graph, startNode, endNode) => {
 
 var current_node_temp;
 var destination_node;
+var previousPath;
+var foundPath;
 
 function selector(btn) {
     current_node_temp = btn.id;
@@ -104,8 +106,22 @@ function selector(btn) {
 
 function destinationSelector(btn) {
     destination_node = current_node_temp;
-    var foundPath = findShortestPath(graph, current_node, destination_node);
+    foundPath = findShortestPath(graph, current_node, destination_node);
     var traversalLength = foundPath.path.length;
     console.log(foundPath);
     console.log(traversalLength);
+    move(foundPath.path.length);
+}
+
+function move(x) {   
+    var path_string = JSON.stringify(foundPath.path);
+    var pathPresence = path_string.search(previous_node);
+    console.log("Search:" + pathPresence);
+    //connection.write("stopAtHallbb("+x+");\n");
+    savePreviousPath();
+}
+
+function savePreviousPath() {
+    previousPath = foundPath;
+    previous_node = previousPath.path[previousPath.path.length - 2];
 }

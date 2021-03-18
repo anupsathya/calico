@@ -28,6 +28,9 @@ function handleThis() {
             else if (d.search('10') != -1){
                 setNode("left_elbow");
             }
+            else if (d.search('Reached') != -1){
+                setNode(destination_node);
+            }
         });
     });
 }
@@ -53,6 +56,3 @@ function collectData() {
     }, 100);
 }
 
-function move(x) {
-    connection.write("stopAtHallbb("+x+");\n");
-}
