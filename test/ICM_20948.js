@@ -31,8 +31,8 @@ var C = {
   ZA_OFFSET_H : 0x7D,
   ZA_OFFSET_L : 0x7E,
   INT_STATUS : 0x3A,
-  ACCEL_XOUT_H : 0x2D,
-  TEMP_OUT_H : 0x39,
+  ACCEL_XOUT_H : 0x3B,
+  TEMP_OUT_H : 0x41,
   GYRO_XOUT_H : 0x33,
   // magnetometer registers
   MAG_ST1 : 0x02, // data ready in bit 0
@@ -380,8 +380,8 @@ MPU9250.prototype.read = function() {
   return {
     accel: this.readAccel(),
     gyro: this.readGyro(),
-    //mag: this.readMag(),
-    //new: this.dataReady() // reading INT_STATUS resets the dataready IRQ line
+    mag: this.readMag(),
+    new: this.dataReady() // reading INT_STATUS resets the dataready IRQ line
   };
 };
 
@@ -402,206 +402,11 @@ exports.connectI2C = function(i2c,options) {
   },options);
 };
 
-function hallEffectTest() {
-  pinMode(D8, "input_pullup");
-  setInterval(function () {
-    var x = analogRead(D8);
-    console.log(x);
-  }, 100);
-}
 
-function moveForward(a) {
-  setTimeout(function () {
-    D25.write(0);
-    analogWrite(D24, 0);
-  }, a);
-  analogWrite(D24, 1);
-}
-
-function moveBackward(a) {
-  setTimeout(function () {
-    D24.write(0);
-    analogWrite(D25, 0);
-  }, a);
-  analogWrite(D25, 1);
-}
-
-function locoStop() {
-  D24.write(0);
-  D25.write(0);
-}
-
-function mf() {
-  D24.write(1);
-  D25.write(0);
-}
-
-function mtable() {
-  analogWrite(D22, 1);
-  D23.write(0);
-}
-
-function mtableb() {
-  analogWrite(D23, 1);
-  D22.write(0);
-}
-
-function mb() {
-  D24.write(0);
-  D25.write(1);
-}
-
-function readHall() {
-  var x = analogRead(D5);
-  return x;
-}
-
-var flag = 1;
-var less;
-
-function mtf() {
-  // battery side hall
-  setWatch(function () {
-    console.log(flag);
-    if (flag >= less) {
-      locoStop();
-      D22.write(0);
-      clearWatch();
-      flag = 0;
-      Bluetooth.println("Reached");
-    }
-    flag = flag + 1;
-  }, D7, { repeat: true, edge: 'falling' });
-}
-
-function mtftable() {
-  // battery side hall
-  setWatch(function () {
-    console.log("yup");
-    D22.write(0);
-    clearWatch();
-  }, D7, { repeat: true, edge: 'falling' });
-}
-
-function mtbtable() {
-  // PCB side hall
-  setWatch(function () {
-    console.log("yup");
-    D22.write(0);
-    clearWatch();
-  }, D8, { repeat: true, edge: 'falling' });
-}
-
-
-function mtb() {
-  // pcb side hall
-  setWatch(function () {
-    console.log(flag);
-    if (flag >= less) {
-      locoStop();
-      D22.write(0);
-      clearWatch();
-      flag = 0;
-      Bluetooth.println("Reached");
-    }
-    flag = flag + 1;
-  }, D8, { repeat: true, edge: 'falling' });
-}
-
-function stopAtHallff(x) {
-  // PCB side Hall, PCB side move
-  mf();
-  mtf();
-  less = x;
-}
-
-function stopAtHallfb(x) {
-  // PCB side Hall, Battery side move
-  mb();
-  mtf();
-  less = x;
-}
-
-function stopAtHallbf(x) {
-  // Battery side hall, PCB side move
-  mf();
-  mtb();
-  less = x;
-}
-
-function stopAtHallbb(x) {
-  // Battery side Hall, battery side move
-  mb();
-  mtb();
-  less = x;
-}
-
-function notification(a) {
-  LED2.write(1);
-  setInterval(function () {
-    moveForward(30);
-    setTimeout('moveBackward(30);', 40);
-  }, 100);
-  setTimeout('clearInterval(); locoStop(); LED2.write(0);', a);
-}
-
-function turntablef() {
-  // PCB side
-  mtable();
-  mtftable();
-}
-
-function turntableb() {
-  // Battery side
-  mtable();
-  mtbtable();
-}
-
-pinMode(D7, "input_pullup");
-pinMode(D8, "input_pullup");
 
 var i2c1 = new I2C();
 i2c1.setup({scl:D3,sda:D4});
 mpu = exports.connectI2C(i2c1);
 mpu.initMPU9250();
-
-
-function readIMU(m) {
-  var data = mpu.read();
-  switch(m) {
-  case 'accelx':
-    return data.accel.x;
-  case 'accely':
-    return data.accel.y;
-  case 'accelz':
-    return data.accel.z;
-  case 'gyrox':
-    return data.gyro.x;
-  case 'gyroy':
-    return data.gyro.y;
-  case 'gyroz':
-    return data.gyro.z;
-  default:
-    return data;
-}
-}
-
-var accelDiff;
-var current;
-function touchWatch() {
-  current = readIMU('accelx');
-  setInterval(function() {
-    var next = readIMU('accelx');
-    var tempDiff = next - current;
-    accelDiff = Math.sqrt(tempDiff*tempDiff);
-    if(accelDiff > 0.3){
-      console.log(accelDiff);
-      clearInterval();
-      notification(2000);
-    }
-    current = next;
-  }, 50);
-}
-
-
+var data = mpu.read();
 

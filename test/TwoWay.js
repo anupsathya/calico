@@ -30,6 +30,7 @@ function handleThis() {
             }
             else if (d.search('Reached') != -1){
                 setNode(destination_node);
+                console.log("Receiving");
             }
         });
     });
