@@ -3,44 +3,44 @@
 
 var exports = {};
 var C = {
-  WHO_AM_I_MPU9250 : 0x00,
-  PWR_MGMT_1 : 0x06,
-  PWR_MGMT_2 : 0x07,
-  INT_PIN_CFG : 0x0F,
-  INT_ENABLE : 0x10,
-  FIFO_EN : 0x66,
-  I2C_MST_CTRL : 0x01,
-  USER_CTRL : 0x03,
-  SMPLRT_DIV : 0x00,
-  CONFIG : 0x05,
-  GYRO_CONFIG : 0x02,
-  ACCEL_CONFIG : 0x14,
-  ACCEL_CONFIG2 : 0x15,
-  FIFO_COUNTH : 0x70,
-  FIFO_R_W : 0x72,
-  XG_OFFSET_H : 0x13,
-  XG_OFFSET_L : 0x14,
-  YG_OFFSET_H : 0x15,
-  YG_OFFSET_L : 0x16,
-  ZG_OFFSET_H : 0x17,
-  ZG_OFFSET_L : 0x18,
-  XA_OFFSET_H : 0x77,
-  XA_OFFSET_L : 0x78,
-  YA_OFFSET_H : 0x7A,
-  YA_OFFSET_L : 0x7B,
-  ZA_OFFSET_H : 0x7D,
-  ZA_OFFSET_L : 0x7E,
-  INT_STATUS : 0x3A,
-  ACCEL_XOUT_H : 0x2D,
-  TEMP_OUT_H : 0x39,
-  GYRO_XOUT_H : 0x33,
+  WHO_AM_I_MPU9250: 0x00,
+  PWR_MGMT_1: 0x06,
+  PWR_MGMT_2: 0x07,
+  INT_PIN_CFG: 0x0F,
+  INT_ENABLE: 0x10,
+  FIFO_EN: 0x66,
+  I2C_MST_CTRL: 0x01,
+  USER_CTRL: 0x03,
+  SMPLRT_DIV: 0x00,
+  CONFIG: 0x05,
+  GYRO_CONFIG: 0x02,
+  ACCEL_CONFIG: 0x14,
+  ACCEL_CONFIG2: 0x15,
+  FIFO_COUNTH: 0x70,
+  FIFO_R_W: 0x72,
+  XG_OFFSET_H: 0x13,
+  XG_OFFSET_L: 0x14,
+  YG_OFFSET_H: 0x15,
+  YG_OFFSET_L: 0x16,
+  ZG_OFFSET_H: 0x17,
+  ZG_OFFSET_L: 0x18,
+  XA_OFFSET_H: 0x77,
+  XA_OFFSET_L: 0x78,
+  YA_OFFSET_H: 0x7A,
+  YA_OFFSET_L: 0x7B,
+  ZA_OFFSET_H: 0x7D,
+  ZA_OFFSET_L: 0x7E,
+  INT_STATUS: 0x3A,
+  ACCEL_XOUT_H: 0x2D,
+  TEMP_OUT_H: 0x39,
+  GYRO_XOUT_H: 0x33,
   // magnetometer registers
-  MAG_ST1 : 0x02, // data ready in bit 0
-  MAG_XOUT_L : 0x03,
-  MAG_CNTL1 : 0x0A
+  MAG_ST1: 0x02, // data ready in bit 0
+  MAG_XOUT_L: 0x03,
+  MAG_CNTL1: 0x0A
 };
 
-function MPU9250(r,w,rmag,wmag) {
+function MPU9250(r, w, rmag, wmag) {
   this.r = r; // read from a register on main MPU
   this.w = w; // write to a register on main MPU
   this.rmag = rmag; // read from a register on magnetometer
@@ -48,12 +48,12 @@ function MPU9250(r,w,rmag,wmag) {
 
   this.Ascale = 0; //AFS_2G
   this.Gscale = 0; //GFS_250DPS
-  this.gyrosensitivity  = 131;   // = 131 LSB/degrees/sec
+  this.gyrosensitivity = 131;   // = 131 LSB/degrees/sec
   this.accelsensitivity = 16384; // = 16384 LSB/g
   this.samplerate = 200; // Hz - default
 }
 
-MPU9250.prototype.calibrateMPU9250 = function() {
+MPU9250.prototype.calibrateMPU9250 = function () {
   /*var mpu = this;
   var gyro_bias = [0,0,0];
   var accel_bias = [0,0,0];
@@ -249,26 +249,26 @@ MPU9250.prototype.calibrateMPU9250 = function() {
                     accel_bias[2]/mpu.accelsensitivity ]
     }
   });*/
-  return new Promise(function(resolve) {
+  return new Promise(function (resolve) {
     resolve("calibrateMPU9250 not working at the moment");
   });
 };
 
-MPU9250.prototype.initMPU9250 = function() {
+MPU9250.prototype.initMPU9250 = function () {
   if (this.r(C.WHO_AM_I_MPU9250, 1)[0] != 0xEA)
     throw "MPU9250 WHO_AM_I check failed";
   var mpu = this;
-  return (new Promise(function(resolve) {
-      // wake up device
+  return (new Promise(function (resolve) {
+    // wake up device
     // Clear sleep mode bit (6), enable all sensors
     mpu.w(C.PWR_MGMT_1, 0x00);
-    setTimeout(resolve,100); // Wait for all registers to reset
-  })).then(function() {
+    setTimeout(resolve, 100); // Wait for all registers to reset
+  })).then(function () {
     // Get stable time source
     // Auto select clock source to be PLL gyroscope reference if ready else
     mpu.w(C.PWR_MGMT_1, 0x01);
-    return new Promise(function(resolve) {setTimeout(resolve,200)});
-  }).then(function() {
+    return new Promise(function (resolve) { setTimeout(resolve, 200) });
+  }).then(function () {
     // Configure Gyro and Thermometer
     // Disable FSYNC and set thermometer and gyro bandwidth to 41 and 42 Hz,
     // respectively;
@@ -280,14 +280,14 @@ MPU9250.prototype.initMPU9250 = function() {
     mpu.w(C.CONFIG, 0x03);
 
     // Set sample rate = gyroscope output rate/(1 + SMPLRT_DIV)
-    mpu.w(C.SMPLRT_DIV, E.clip(Math.round(1000/mpu.samplerate)-1,0,255));
+    mpu.w(C.SMPLRT_DIV, E.clip(Math.round(1000 / mpu.samplerate) - 1, 0, 255));
 
     // Set gyroscope full scale range
     // Range selects FS_SEL and AFS_SEL are 0 - 3, so 2-bit values are
     // left-shifted into positions 4:3
 
     // get current GYRO_CONFIG register value
-    var c = mpu.r(C.GYRO_CONFIG,1)[0];
+    var c = mpu.r(C.GYRO_CONFIG, 1)[0];
     // c = c & ~0xE0; // Clear self-test bits [7:5]
     c = c & ~0x02; // Clear Fchoice bits [1:0]
     c = c & ~0x18; // Clear AFS bits [4:3]
@@ -296,11 +296,11 @@ MPU9250.prototype.initMPU9250 = function() {
     // GYRO_CONFIG
     // c =| 0x00;
     // Write new GYRO_CONFIG value to register
-    mpu.w(C.GYRO_CONFIG, c );
+    mpu.w(C.GYRO_CONFIG, c);
 
     // Set accelerometer full-scale range configuration
     // Get current ACCEL_CONFIG register value
-    c = mpu.r(C.ACCEL_CONFIG,1)[0];
+    c = mpu.r(C.ACCEL_CONFIG, 1)[0];
     // c = c & ~0xE0; // Clear self-test bits [7:5]
     c = c & ~0x18;  // Clear AFS bits [4:3]
     c = c | mpu.Ascale << 3; // Set full scale range for the accelerometer
@@ -312,7 +312,7 @@ MPU9250.prototype.initMPU9250 = function() {
     // choosing 1 for accel_fchoice_b bit [3]; in this case the bandwidth is
     // 1.13 kHz
     // Get current ACCEL_CONFIG2 register value
-    c = mpu.r(C.ACCEL_CONFIG2,1)[0];
+    c = mpu.r(C.ACCEL_CONFIG2, 1)[0];
     c = c & ~0x0F; // Clear accel_fchoice_b (bit 3) and A_DLPFG (bits [2:0])
     c = c | 0x03;  // Set accelerometer rate to 1 kHz and bandwidth to 41 Hz
     // Write new ACCEL_CONFIG2 register value
@@ -335,48 +335,48 @@ MPU9250.prototype.initMPU9250 = function() {
     mpu.wmag(C.MAG_CNTL1, 0b10010); // 16 bit, 8 Hz
 
 
-    return new Promise(function(resolve) {setTimeout(resolve,100)});
+    return new Promise(function (resolve) { setTimeout(resolve, 100) });
   });
 };
 
-MPU9250.prototype.dataReady = function() {
-  return this.r(C.INT_STATUS,1) & 0x01;
+MPU9250.prototype.dataReady = function () {
+  return this.r(C.INT_STATUS, 1) & 0x01;
 };
 
 // return {x,y,z} for the accelerometer - in G
-MPU9250.prototype.readAccel = function() {
+MPU9250.prototype.readAccel = function () {
   var d = new DataView(new Uint8Array(this.r(C.ACCEL_XOUT_H, 6)).buffer);
   return { // big endian
-    x: d.getInt16(0,0)/this.accelsensitivity,
-    y: d.getInt16(2,0)/this.accelsensitivity,
-    z: d.getInt16(4,0)/this.accelsensitivity
+    x: d.getInt16(0, 0) / this.accelsensitivity,
+    y: d.getInt16(2, 0) / this.accelsensitivity,
+    z: d.getInt16(4, 0) / this.accelsensitivity
   };
 };
 
 // return {x,y,z} for the gyro in degrees/second
-MPU9250.prototype.readGyro = function() {
+MPU9250.prototype.readGyro = function () {
   var d = new DataView(new Uint8Array(this.r(C.GYRO_XOUT_H, 6)).buffer);
   return { // big endian
-    x: d.getInt16(0,0)/this.gyrosensitivity,
-    y: d.getInt16(2,0)/this.gyrosensitivity,
-    z: d.getInt16(4,0)/this.gyrosensitivity
+    x: d.getInt16(0, 0) / this.gyrosensitivity,
+    y: d.getInt16(2, 0) / this.gyrosensitivity,
+    z: d.getInt16(4, 0) / this.gyrosensitivity
   };
 };
 
 // return {x,y,z} for the magnetometer in millGaus
-MPU9250.prototype.readMag = function() {
+MPU9250.prototype.readMag = function () {
   var d = new DataView(new Uint8Array(this.rmag(C.MAG_XOUT_L, 7)).buffer);
   // reading 7th byte lets us get more data next time
-  var s = 49120/32760;
+  var s = 49120 / 32760;
   return { // little endian
-    x: d.getInt16(0,1)*s,
-    y: d.getInt16(2,1)*s,
-    z: d.getInt16(4,1)*s
+    x: d.getInt16(0, 1) * s,
+    y: d.getInt16(2, 1) * s,
+    z: d.getInt16(4, 1) * s
   };
 };
 
 // return {x,y,z} for all 3 sensors - { accel, gyro, mag }
-MPU9250.prototype.read = function() {
+MPU9250.prototype.read = function () {
   return {
     accel: this.readAccel(),
     gyro: this.readGyro(),
@@ -386,20 +386,20 @@ MPU9250.prototype.read = function() {
 };
 
 // Initialise the MPU9250 module with the given I2C interface
-exports.connectI2C = function(i2c,options) {
+exports.connectI2C = function (i2c, options) {
   var ampu = 0x68;
   var amag = 0x0C;
-  return new MPU9250(function(reg,len) { // read mpu
-    i2c.writeTo(ampu,reg);
-    return i2c.readFrom(ampu,len);
-  }, function(reg,data) { // write mpu
-    i2c.writeTo(ampu,reg,data);
-  },function(reg,len) { // read mag
-    i2c.writeTo(amag,reg);
-    return i2c.readFrom(amag,len);
-  }, function(reg,data) { // write mag
-    i2c.writeTo(amag,reg,data);
-  },options);
+  return new MPU9250(function (reg, len) { // read mpu
+    i2c.writeTo(ampu, reg);
+    return i2c.readFrom(ampu, len);
+  }, function (reg, data) { // write mpu
+    i2c.writeTo(ampu, reg, data);
+  }, function (reg, len) { // read mag
+    i2c.writeTo(amag, reg);
+    return i2c.readFrom(amag, len);
+  }, function (reg, data) { // write mag
+    i2c.writeTo(amag, reg, data);
+  }, options);
 };
 
 function hallEffectTest() {
@@ -413,41 +413,54 @@ function hallEffectTest() {
 function moveForward(a) {
   setTimeout(function () {
     D25.write(0);
-    analogWrite(D24, 0);
+    analogWrite(D22, 0);
   }, a);
-  analogWrite(D24, 1);
+  analogWrite(D22, 1);
+}
+
+function mtablearg(a) {
+  setTimeout(function () {
+    D19.write(0);
+    analogWrite(D17, 0);
+  }, a);
+  analogWrite(D17, 1);
 }
 
 function moveBackward(a) {
   setTimeout(function () {
-    D24.write(0);
+    D22.write(0);
     analogWrite(D25, 0);
   }, a);
   analogWrite(D25, 1);
 }
 
 function locoStop() {
-  D24.write(0);
+  D22.write(0);
   D25.write(0);
 }
 
 function mf() {
-  D24.write(1);
+  D22.write(1);
   D25.write(0);
 }
 
 function mtable() {
-  analogWrite(D22, 1);
-  D23.write(0);
+  analogWrite(D17, 0.4);
+  D19.write(0);
 }
 
 function mtableb() {
-  analogWrite(D23, 1);
-  D22.write(0);
+  analogWrite(D19, 1);
+  D17.write(0);
+}
+
+function tablestop() {
+  D19.write(0);
+  D17.write(0);
 }
 
 function mb() {
-  D24.write(0);
+  D22.write(0);
   D25.write(1);
 }
 
@@ -465,7 +478,7 @@ function mtf() {
     console.log(flag);
     if (flag >= less) {
       locoStop();
-      D22.write(0);
+      D17.write(0);
       clearWatch();
       flag = 0;
       Bluetooth.println("Reached");
@@ -474,20 +487,35 @@ function mtf() {
   }, D7, { repeat: true, edge: 'falling' });
 }
 
+function mtm() {
+  // battery side hall
+  setWatch(function () {
+    console.log(flag);
+    if (flag >= less) {
+      locoStop();
+      D17.write(0);
+      clearWatch();
+      flag = 0;
+      Bluetooth.println("Reached");
+    }
+    flag = flag + 1;
+  }, D8, { repeat: true, edge: 'falling' });
+}
+
 function mtftable() {
   // battery side hall
   setWatch(function () {
     console.log("yup");
-    D22.write(0);
+    D17.write(0);
     clearWatch();
-  }, D7, { repeat: true, edge: 'falling' });
+  }, D6, { repeat: true, edge: 'falling' });
 }
 
 function mtbtable() {
   // PCB side hall
   setWatch(function () {
     console.log("yup");
-    D22.write(0);
+    D17.write(0);
     clearWatch();
   }, D8, { repeat: true, edge: 'falling' });
 }
@@ -499,7 +527,7 @@ function mtb() {
     console.log(flag);
     if (flag >= less) {
       locoStop();
-      D22.write(0);
+      D17.write(0);
       clearWatch();
       flag = 0;
       Bluetooth.println("Reached");
@@ -512,6 +540,20 @@ function stopAtHallff(x) {
   // PCB side Hall, PCB side move
   mf();
   mtf();
+  less = x;
+}
+
+function stopAtHallf(x) {
+  // PCB side Hall, PCB side move
+  mf();
+  mtm();
+  less = x;
+}
+
+function stopAtHallb(x) {
+  // PCB side Hall, PCB side move
+  mb();
+  mtm();
   less = x;
 }
 
@@ -551,50 +593,44 @@ function turntablef() {
   mtftable();
 }
 
-function turntableb() {
-  // Battery side
-  mtable();
-  mtbtable();
-}
-
-pinMode(D7, "input_pullup");
+pinMode(D6, "input_pullup");
 pinMode(D8, "input_pullup");
 
 var i2c1 = new I2C();
-i2c1.setup({scl:D3,sda:D4});
+i2c1.setup({ scl: D3, sda: D4 });
 mpu = exports.connectI2C(i2c1);
 mpu.initMPU9250();
 
 
 function readIMU(m) {
   var data = mpu.read();
-  switch(m) {
-  case 'accelx':
-    return data.accel.x;
-  case 'accely':
-    return data.accel.y;
-  case 'accelz':
-    return data.accel.z;
-  case 'gyrox':
-    return data.gyro.x;
-  case 'gyroy':
-    return data.gyro.y;
-  case 'gyroz':
-    return data.gyro.z;
-  default:
-    return data;
-}
+  switch (m) {
+    case 'accelx':
+      return data.accel.x;
+    case 'accely':
+      return data.accel.y;
+    case 'accelz':
+      return data.accel.z;
+    case 'gyrox':
+      return data.gyro.x;
+    case 'gyroy':
+      return data.gyro.y;
+    case 'gyroz':
+      return data.gyro.z;
+    default:
+      return data;
+  }
 }
 
 var accelDiff;
 var current;
 function touchWatch() {
   current = readIMU('accelx');
-  setInterval(function() {
+  setInterval(function () {
     var next = readIMU('accelx');
     var tempDiff = next - current;
-    accelDiff = Math.sqrt(tempDiff*tempDiff);
-    if(accelDiff > 0.3){
+    accelDiff = Math.sqrt(tempDiff * tempDiff);
+    if (accelDiff > 0.3) {
       console.log(accelDiff);
       clearInterval();
       notification(2000);
