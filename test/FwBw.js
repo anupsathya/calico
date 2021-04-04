@@ -488,7 +488,7 @@ function mtf() {
 }
 
 function mtm() {
-  // battery side hall
+  // underside hall
   setWatch(function () {
     console.log(flag);
     if (flag >= less) {
@@ -640,4 +640,62 @@ function touchWatch() {
 }
 
 
+
+function imuString() {
+  setInterval(function () {
+    var imur = readIMU();
+    var str_imu = JSON.stringify(imur);
+    console.log(str_imu);
+  }
+  ,1);
+}
+
+function resilienceCountb(m) {
+  // underside hall
+  setWatch(function () {
+    console.log(flag);
+    if (flag >= less) {
+      //D17.write(0);
+      clearWatch();
+      flag = 0;
+      console.log("Reached");
+      resilienceExperimentf(m);
+    }
+    flag = flag + 1;
+  }, D8, { repeat: true, edge: 'falling' });
+}
+
+function resilienceCountf(m) {
+  // underside hall
+  setWatch(function () {
+    console.log(flag);
+    if (flag >= less) {
+      //D17.write(0);
+      clearWatch();
+      flag = 0;
+      console.log("Reached");
+      resilienceExperimentb(m);
+    }
+    flag = flag + 1;
+  }, D8, { repeat: true, edge: 'falling' });
+}
+
+
+function resilienceExperimentb(x) {
+  less = x;
+  mb();
+  resilienceCountb(x);
+}
+
+function resilienceExperimentf(x) {
+  less = x;
+  mf();
+  resilienceCountf(x);
+}
+
+function stopExperiment() {
+  locoStop();
+  clearWatch();
+  flag = 0;
+}
 
