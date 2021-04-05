@@ -380,6 +380,8 @@ MPU9250.prototype.read = function () {
   return {
     accel: this.readAccel(),
     gyro: this.readGyro(),
+    time: Date.now(),
+    magnet: flag,
     //mag: this.readMag(),
     //new: this.dataReady() // reading INT_STATUS resets the dataready IRQ line
   };
@@ -647,7 +649,7 @@ function imuString() {
     var str_imu = JSON.stringify(imur);
     console.log(str_imu);
   }
-  ,1);
+  ,70);
 }
 
 function resilienceCountb(m) {
@@ -697,5 +699,11 @@ function stopExperiment() {
   locoStop();
   clearWatch();
   flag = 0;
+}
+
+function magnetCount() {
+  setWatch(function () {
+    flag = flag + 1;
+  }, D8, { repeat: true, edge: 'falling' });
 }
 

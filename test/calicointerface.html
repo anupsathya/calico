@@ -9,7 +9,7 @@
   <button onclick="console.log('moving'); UART.write(`moveForward(${speedx});\n`); ">Forward</button>
   <button onclick="UART.write(`moveBackward(${speedx});\n`);">Backward</button>
   <button onclick="UART.write(`stopExperiment();\n`);">STOP</button>
-  <button onclick="UART.write(`resilienceExperimentb(5);\n`);">START</button>
+  <button onclick="UART.write(`resilienceExperimentf(7);\n`);">START</button>
   <form>
     Speed <input type="text" name="speed" onkeyup="formChanged()" onchange="formChanged()" value="0">
     <br>
