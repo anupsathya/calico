@@ -95,12 +95,23 @@ circle:hover {
     background: rgba(40,167,69,.32549019607843137) !important;
 }
 
-.exercise path {
+.exercise-good path {
     stroke: none !important;
-    fill: rgba(0,123,255,0.6) !important;
+    fill: #28a746a5 !important;
 }
 
-.exercise {
+.exercise-bad path {
+    stroke: none !important;
+    fill: rgba(255, 164, 7, 0.9) !important;
+}
+
+.exercise-good {
+    z-index: 999;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.exercise-bad {
     z-index: 999;
     padding-left: 3rem;
     padding-right: 3rem;
