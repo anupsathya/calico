@@ -101,9 +101,11 @@ circle:hover {
 }
 
 .exercise {
-    margin-top: -5rem;
+    z-index: 999;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 .feedicon {
-    margin-top: -17rem;
+    margin-top: -1rem;
 }
