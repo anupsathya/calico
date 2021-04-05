@@ -698,12 +698,19 @@ function resilienceExperimentf(x) {
 function stopExperiment() {
   locoStop();
   clearWatch();
+  clearInterval();
   flag = 0;
 }
 
 function magnetCount() {
+  flag = 0;
   setWatch(function () {
     flag = flag + 1;
   }, D8, { repeat: true, edge: 'falling' });
 }
 
+function startExperiment() {
+  imuString();
+  magnetCount();
+  mf();
+}
