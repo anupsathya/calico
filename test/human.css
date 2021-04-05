@@ -38,6 +38,11 @@ path {
     stroke: none !important;
 }
 
+.feedback-bad {
+    fill: rgba(255, 164, 7, 0.9) !important;
+    stroke: none !important;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     background-color: rgba(0,123,255,.06274509803921569) !important;
     font-family: 'Archia Semibold';
