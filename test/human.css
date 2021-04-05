@@ -94,3 +94,16 @@ circle:hover {
 .btn-info:active {
     background: rgba(40,167,69,.32549019607843137) !important;
 }
+
+.exercise path {
+    stroke: none !important;
+    fill: rgba(0,123,255,0.6) !important;
+}
+
+.exercise {
+    margin-top: -5rem;
+}
+
+.feedicon {
+    margin-top: -17rem;
+}
