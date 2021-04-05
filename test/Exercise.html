@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="human.css">
+
+    <title>Exercise!</title>
+</head>
+
+<body class="dark-mode">
+    <div class="container">
+        <a class="btn btn-info float-right" onclick="handleThis()">Connect</a>
+        <h1 class="mt-5 mb-3">Workout Buddy</h1>
+        <!-- <p class="sub-h">Hold still for 5 seconds in the ideal position before you start the set. </p> -->
+    </div>
+    <div class="container">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                    aria-controls="pills-home" aria-selected="true">Push Up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                    aria-controls="pills-profile" aria-selected="false">Squat</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                        <!DOCTYPE svg
+                            PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                        <svg width="70%" height="100%" viewBox="0 0 100 125" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2; margin-left: 2rem;">
+                            <path id="feedback-icon" class="feedback"
+                                d="M51.11,40.214C45.705,40.214 41.324,44.595 41.324,49.999C41.324,55.404 45.705,59.784 51.11,59.784C56.515,59.784 60.896,55.403 60.896,49.999C60.896,44.595 56.515,40.214 51.11,40.214ZM24.084,17.567L20.365,13.851C11.115,23.102 5.393,35.883 5.393,49.999C5.393,64.116 11.114,76.897 20.365,86.149L24.084,82.432C15.784,74.133 10.648,62.666 10.648,49.999C10.647,37.335 15.783,25.869 24.084,17.567ZM27.462,20.947C20.024,28.383 15.426,38.655 15.426,50C15.426,61.347 20.024,71.62 27.462,79.055L31.516,75.002C25.119,68.602 21.159,59.763 21.159,50C21.159,40.237 25.12,31.398 31.516,25L27.462,20.947ZM80.419,13.852L76.703,17.568C85.003,25.868 90.137,37.335 90.137,50C90.137,62.665 85.004,74.131 76.703,82.432L80.419,86.149C89.669,76.897 95.393,64.117 95.393,50C95.393,35.883 89.669,23.103 80.419,13.852ZM73.324,20.945L69.27,24.998C75.667,31.398 79.627,40.237 79.627,49.999C79.627,59.762 75.666,68.602 69.27,74.999L73.324,79.051C80.762,71.617 85.36,61.345 85.36,50C85.36,38.653 80.762,28.381 73.324,20.945Z"
+                                style="fill-rule:nonzero;" />
+                        </svg>
+                    </div>
+                    <!-- <div class="col-4" style="padding-top:10rem;padding-left:3rem;">
+                        <a class="btn btn-warning btn-block" onclick="setNode(current_node_temp);">Set Current
+                            Location</a>
+                        <a class="btn btn-warning btn-block" onclick="destinationSelector(current_node_temp);">Set
+                            Destination</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                        <!DOCTYPE svg
+                            PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                        <svg width="70%" height="100%" viewBox="0 0 100 125" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2; margin-left: 2rem;">
+                            <path id="feedback-icon" class="feedback"
+                                d="M51.11,40.214C45.705,40.214 41.324,44.595 41.324,49.999C41.324,55.404 45.705,59.784 51.11,59.784C56.515,59.784 60.896,55.403 60.896,49.999C60.896,44.595 56.515,40.214 51.11,40.214ZM24.084,17.567L20.365,13.851C11.115,23.102 5.393,35.883 5.393,49.999C5.393,64.116 11.114,76.897 20.365,86.149L24.084,82.432C15.784,74.133 10.648,62.666 10.648,49.999C10.647,37.335 15.783,25.869 24.084,17.567ZM27.462,20.947C20.024,28.383 15.426,38.655 15.426,50C15.426,61.347 20.024,71.62 27.462,79.055L31.516,75.002C25.119,68.602 21.159,59.763 21.159,50C21.159,40.237 25.12,31.398 31.516,25L27.462,20.947ZM80.419,13.852L76.703,17.568C85.003,25.868 90.137,37.335 90.137,50C90.137,62.665 85.004,74.131 76.703,82.432L80.419,86.149C89.669,76.897 95.393,64.117 95.393,50C95.393,35.883 89.669,23.103 80.419,13.852ZM73.324,20.945L69.27,24.998C75.667,31.398 79.627,40.237 79.627,49.999C79.627,59.762 75.666,68.602 69.27,74.999L73.324,79.051C80.762,71.617 85.36,61.345 85.36,50C85.36,38.653 80.762,28.381 73.324,20.945Z"
+                                style="fill-rule:nonzero;" />
+                        </svg>
+                    </div>
+                    <!-- <div class="col-4">
+                        <a class="btn btn-warning btn-block" onclick="playGame();">Workout Buddy</a>
+                        <a class="btn btn-warning btn-block" onclick="stopGame();">Stop Workout</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="human.js"></script>
+    <script src="TwoWay.js"></script>
+    <script src="GraphTraversal.js"></script>
+    <script src="PersonalCompanion.js"></script>
+    <script src="https://www.puck-js.com/puck.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>

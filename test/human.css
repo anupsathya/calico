@@ -33,11 +33,27 @@ path {
     stroke:rgba(0,123,255,0.6) !important;
 }
 
+.feedback {
+    fill: #28a746a5 !important;
+    stroke: none !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: rgba(0,123,255,.06274509803921569) !important;
+    font-family: 'Archia Semibold';
+    color: rgba(0,123,255,.6);
+}
+
 circle {
     fill: rgba(0,123,255,0.6) !important;
     transform-origin: 51.2% 47.8%;
     transition: all .1s ease-in-out;
     cursor: pointer;
+}
+
+.nav-link {
+    font-family: 'Archia Semibold';
+    color: rgba(108,117,125,.8);
 }
 
 circle:hover {
