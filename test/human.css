@@ -56,6 +56,14 @@ circle {
     cursor: pointer;
 }
 
+#calico circle {
+    fill: rgba(0,123,255,1) !important;
+}
+
+#calico1 circle {
+    fill: rgba(0,123,255,1) !important;
+}
+
 .nav-link {
     font-family: 'Archia Semibold';
     color: rgba(108,117,125,.8);
@@ -95,14 +103,17 @@ circle:hover {
     background: rgba(40,167,69,.32549019607843137) !important;
 }
 
+.btn-connected {
+    background: rgba(40,167,69,.22549019607843137) !important;
+    color: #28a745 !important;
+}
+
 .exercise-good path {
-    stroke: none !important;
-    fill: #28a746a5 !important;
+    stroke: #28a746a5 !important;
 }
 
 .exercise-bad path {
-    stroke: none !important;
-    fill: rgba(255, 164, 7, 0.9) !important;
+    stroke: rgba(255, 164, 7, 0.9) !important;
 }
 
 .exercise-good {
