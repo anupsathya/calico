@@ -10,6 +10,8 @@
   <button onclick="UART.write(`moveBackward(${speedx});\n`);">Backward</button>
   <button onclick="UART.write(`stopExperiment();\n`);">STOP</button>
   <button onclick="UART.write(`startExperiment();\n`);">START</button>
+  <button onclick="UART.write(`digitalWrite(D5,1);\n`);">LED ON</button>
+  <button onclick="UART.write(`digitalWrite(D5,0);\n`);">LED OFF</button>
   <form>
     Speed <input type="text" name="speed" onkeyup="formChanged()" onchange="formChanged()" value="0">
     <br>
