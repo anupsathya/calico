@@ -109,11 +109,13 @@ circle:hover {
 }
 
 .exercise-good path {
-    stroke: #28a746a5 !important;
+    stroke: none !important;
+    fill: #28a746 !important;
 }
 
 .exercise-bad path {
-    stroke: rgba(255, 164, 7, 0.9) !important;
+    stroke: none !important;
+    fill: rgba(255, 164, 7, 0.9) !important;
 }
 
 .exercise-good {
