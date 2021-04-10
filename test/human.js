@@ -21,3 +21,7 @@ var man = document.getElementById('exercise-svg');
 setTimeout(function () {
     man.classList.replace("exercise-good", "exercise-bad");
 }, 10000);
+
+setTimeout(function () {
+    man.classList.replace("exercise-bad", "exercise-good");
+}, 17000);
