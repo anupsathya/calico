@@ -5,9 +5,8 @@ function updateList() {
     var newNode = document.getElementById(current_node);
     var oldNode = document.getElementById(previous_node);
     newNode.classList.add("current-node");
-    if(oldNode != newNode)
-    {
-    oldNode.classList.remove("current-node");
+    if (oldNode != newNode) {
+        oldNode.classList.remove("current-node");
     }
 }
 
@@ -16,3 +15,9 @@ function setNode(x) {
     current_node = x;
     updateList();
 }
+
+
+var man = document.getElementById('exercise-svg');
+setTimeout(function () {
+    man.classList.replace("exercise-good", "exercise-bad");
+}, 10000);
