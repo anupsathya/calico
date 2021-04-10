@@ -649,7 +649,7 @@ function imuString() {
     var str_imu = JSON.stringify(imur);
     console.log(str_imu);
   }
-  ,70);
+    , 70);
 }
 
 function resilienceCountb(m) {
@@ -713,4 +713,102 @@ function startExperiment() {
   imuString();
   magnetCount();
   mf();
+}
+
+var sineA = [128, 150, 171, 191, 209, 225, 238, 247, 253, 255, 253, 247, 238, 225, 209, 191, 171, 150, 128];
+
+function moveSine() {
+  var i = 0;
+  var x = 1;
+  setInterval(function () {
+    if (x % 2 == 0) {
+      if (i <= 19) {
+        var temp = sineA[i]/255;
+        temp = (temp - 0.50196078431)/(1-0.50196078431); //mapping to 0 - 1
+        console.log(temp);
+        analogWrite(D22, temp);
+        digitalWrite(D25, 0);
+        i++;
+        if (i == 19) {
+          locoStop();
+          i = 0;
+          x++;
+        }
+      }
+    } else if (x % 2 != 0) {
+      if (i <= 19) {
+        var temp1 = sineA[i]/255;
+        temp1 = (temp1 - 0.50196078431)/(1-0.50196078431); //mapping to 0 - 1
+        console.log(temp1);
+        analogWrite(D25, temp1);
+        digitalWrite(D22, 0);
+        i++;
+        if (i == 19) {
+          locoStop();
+          i = 0;
+          x++;
+        }
+      }
+    }
+  }, 30);
+}
+
+function moveSquare() {
+  var i = 0;
+  var x = 1;
+  setInterval(function () {
+    if (x % 2 == 0) {
+      if (i <= 19) {
+        analogWrite(D22, 1);
+        digitalWrite(D25, 0);
+        i++;
+        if (i == 19) {
+          locoStop();
+          i = 0;
+          x++;
+        }
+      }
+    } else if (x % 2 != 0) {
+      if (i <= 19) {
+        analogWrite(D25, 1);
+        digitalWrite(D22, 0);
+        i++;
+        if (i == 19) {
+          locoStop();
+          i = 0;
+          x++;
+        }
+      }
+    }
+  }, 30);
+}
+
+function moveRamp() {
+  var i = 0;
+  var x = 1;
+  setInterval(function () {
+    if (x % 2 == 0) {
+      if (i <= 19) {
+        analogWrite(D22, 1);
+        digitalWrite(D25, 0);
+        i++;
+        if (i == 19) {
+          locoStop();
+          i = 0;
+          x++;
+        }
+      }
+    } else if (x % 2 != 0) {
+      if (i <= 50) {
+        analogWrite(D25, 0.4);
+        digitalWrite(D22, 0);
+        i++;
+        if (i == 50) {
+          locoStop();
+          i = 0;
+          x++;
+        }
+      }
+    }
+  }, 10);
 }
