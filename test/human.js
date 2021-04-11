@@ -25,3 +25,7 @@ setTimeout(function () {
 setTimeout(function () {
     man.classList.replace("exercise-bad", "exercise-good");
 }, 17000);
+
+function moveRobot() {
+    connection.write("moveForward(500);\n");
+}
