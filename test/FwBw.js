@@ -452,7 +452,7 @@ function mtable() {
 }
 
 function mtableb() {
-  analogWrite(D19, 1);
+  analogWrite(D19, 0.4);
   D17.write(0);
 }
 
@@ -509,6 +509,7 @@ function mtftable() {
   setWatch(function () {
     console.log("yup");
     D17.write(0);
+    D19.write(0);
     clearWatch();
   }, D6, { repeat: true, edge: 'falling' });
 }
@@ -591,7 +592,13 @@ function notification(a) {
 
 function turntablef() {
   // PCB side
-  mtable();
+  mtableb();
+  mtftable();
+}
+
+function turntableb() {
+  // PCB side
+  mtableb();
   mtftable();
 }
 
@@ -758,11 +765,11 @@ function moveSquare() {
   var x = 1;
   setInterval(function () {
     if (x % 2 == 0) {
-      if (i <= 19) {
+      if (i <= 15) {
         analogWrite(D22, 1);
         digitalWrite(D25, 0);
         i++;
-        if (i == 19) {
+        if (i == 15) {
           locoStop();
           i = 0;
           x++;
@@ -811,4 +818,58 @@ function moveRamp() {
       }
     }
   }, 10);
+}
+
+function stopAtHallfilm(x) {
+  // PCB side Hall, PCB side move
+  mb();
+  mtmfilm();
+  less = x;
+}
+
+function mtmfilm() {
+  // underside hall
+  setWatch(function () {
+    console.log(flag);
+    if (flag >= less) {
+      locoStop();
+      D17.write(0);
+      clearWatch();
+      flag = 0;
+      turntablefilm();
+    }
+    flag = flag + 1;
+  }, D8, { repeat: true, edge: 'falling' });
+}
+
+function turntablefilm() {
+  // PCB side
+  mtableb();
+  mtftablefilm();
+}
+
+function turntablefilm1() {
+  // PCB side
+  mtableb();
+  mtftablefilm1();
+}
+
+function mtftablefilm() {
+  // battery side hall
+  setWatch(function () {
+    D17.write(0);
+    D19.write(0);
+    clearWatch();
+    turntablefilm1();
+  }, D6, { repeat: true, edge: 'falling' });
+}
+
+function mtftablefilm1() {
+  // battery side hall
+  setWatch(function () {
+    D17.write(0);
+    D19.write(0);
+    clearWatch();
+    mf();
+  }, D6, { repeat: true, edge: 'falling' });
 }
