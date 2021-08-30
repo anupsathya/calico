@@ -29,3 +29,12 @@ setTimeout(function () {
 function moveRobot() {
     connection.write("moveForward(500);\n");
 }
+
+function updateProgress() {
+    document.getElementById("progressbar").style.width = "70%";
+}
+
+var progressBar = document.getElementById("progressbar");
+setTimeout(function () {
+    progressBar.style.width = "70%";
+}, 7000);

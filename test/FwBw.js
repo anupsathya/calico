@@ -873,3 +873,12 @@ function mtftablefilm1() {
     mf();
   }, D6, { repeat: true, edge: 'falling' });
 }
+
+function danceTrainer(a) {
+  setTimeout(function () {
+    D22.write(0);
+    analogWrite(D25, 0);
+    notification(2000);
+  }, a);
+  analogWrite(D25, 1);
+}

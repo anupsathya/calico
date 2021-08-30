@@ -86,6 +86,13 @@ circle:hover {
     border:none;
 }
 
+.btn-info, .btn-water{
+    background: rgba(108,117,125,.16274509803921569);
+    color: rgba(108,117,125,1) !important;
+    font-family: 'Archia Medium';
+    border:none;
+}
+
 .btn-warning:hover {
     background: #fd7d144a;
     color: #fd7d14 !important;
@@ -132,4 +139,12 @@ circle:hover {
 
 .feedicon {
     margin-top: -1rem;
+}
+
+.progress {
+    background-color: rgba(40,167,69,.2) !important;
+}
+
+.bg-calico-green {
+    background-color: rgba(40,167,69) !important;
 }
