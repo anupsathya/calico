@@ -874,11 +874,50 @@ function mtftablefilm1() {
   }, D6, { repeat: true, edge: 'falling' });
 }
 
-function danceTrainer(a) {
+function danceTrainerTime(a) {
   setTimeout(function () {
     D22.write(0);
     analogWrite(D25, 0);
     notification(2000);
   }, a);
   analogWrite(D25, 1);
+}
+
+function danceTrainerIMU() {
+  current = readIMU('accelx'); //Change this accelx to the axis that's needed. You might have to consolidate multiple axes. You can also use the gyroscope to check orientation if that's better.
+  mb(); //Start moving backward
+  setInterval(function () {
+    var next = readIMU('accelx'); //Change this as well.
+    var tempDiff = next - current;
+    accelDiff = Math.sqrt(tempDiff * tempDiff);
+    if (accelDiff > 0.3) { //Adjust this threshold
+      console.log(accelDiff); //Logs the difference. You can use this to adjust accelDiff threshold.
+      clearInterval();
+      locoStop(); //Stop the movement.
+      notification(2000);
+    }
+    current = next;
+  }, 50); //You can also change how often it samples the IMU. You can use imuString(); to continuosly print IMU readings if you want to see what axis is changing.
+}
+
+var reps;
+var exrFlag;
+function countReps() {
+  reps = 0;
+  exrFlag = 0;
+  current = readIMU('accelx'); //Change based on actual axis.
+  setInterval(function () {
+    var next = readIMU('accelx');
+    var tempDiff = next - current;
+    accelDiff = Math.sqrt(tempDiff * tempDiff);
+    if (accelDiff > 0.3) { //Change this based on how it's working. 
+      console.log(accelDiff);
+      reps++;
+      if (reps > 8){
+        clearInterval(); //Stops counting after 8 reps. 
+        exrFlag = 1; //Global variable to indicate that a set of 8 reps is done. 
+      }
+    }
+    current = next;
+  }, 3000); //Assuming that each rep takes about 3 seconds, change if needed. It just samples every 3 seconds to see if the person is performing a rep.
 }
