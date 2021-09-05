@@ -914,6 +914,7 @@ function countReps() {
       console.log(accelDiff);
       reps++;
       if (reps > 8){
+        console.log("8 reps done");
         clearInterval(); //Stops counting after 8 reps. 
         exrFlag = 1; //Global variable to indicate that a set of 8 reps is done. 
       }
