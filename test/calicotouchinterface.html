@@ -1,0 +1,54 @@
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="human.css">
+
+  <title>Touch Interface</title>
+</head>
+<body class="dark-mode">
+  <div class="container">
+    <!-- <a class="btn btn-info float-right btn-connected" onclick="UART.write(`locoStop();\n`)">Connect</a> -->
+    <h1 class="mt-5 mb-4">Touch Interface</h1>
+    <div class="row">
+      <div class="col-12">
+        <a class="btn btn-warning mt-2 btn-block btn-water btn-lg" onclick="UART.write(`mf();\n`);">Forward</a>
+        <a class="btn btn-warning mt-2 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`mb();\n`);">Backward</a>
+        <a class="btn btn-warning mt-5 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`locoStop();\n`);">Stop</a>
+
+        <a class="btn btn-warning mt-5 btn-block btn-water btn-lg" onclick="UART.write(`LED2.write(1);\n`);">LED On</a>
+        <a class="btn btn-warning mt-2 btn-block btn-water btn-lg" onclick="UART.write(`LED2.write(0);\n`);">LED Off</a>
+      </div>
+    </div>
+    <!-- 
+    <button onclick="console.log('moving'); UART.write(`moveForward(${speedx});\n`); ">Forward</button>
+    <button onclick="UART.write(`moveBackward(${speedx});\n`);">Backward</button>
+    <button onclick="UART.write(`stopExperiment();\n`);">STOP</button>
+    <button onclick="UART.write(`startExperiment();\n`);">START</button>
+    <button onclick="UART.write(`digitalWrite(D5,1);\n`);">LED ON</button>
+    <button onclick="UART.write(`digitalWrite(D5,0);\n`);">LED OFF</button> -->
+  </div>
+
+  
+
+  <script src="https://www.espruino.com/js/uart.js"></script>
+  <script src="/Users/anupsathya/Research/calico/test/WebFunctions.js"></script>
+  <script src="/Users/anupsathya/Research/calico/test/GraphTraversal.js"></script>
+  <!-- <script src="/Users/anupsathya/Research/calico/test/KeyControl.js"></script> -->
+  <script src="/Users/anupsathya/Research/calico/test/ButtonControl.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+</body>
+</html>
