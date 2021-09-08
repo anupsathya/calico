@@ -26,6 +26,26 @@ setTimeout(function () {
     man.classList.replace("exercise-bad", "exercise-good");
 }, 17000);
 
+function changeBackground() {
+    console.log("Changing");
+    var element = document.getElementById("pills-home");
+    element.classList.remove("show");
+    element.classList.remove("active");
+    var elementnew = document.getElementById("pills-profile");
+    elementnew.classList.add("show");
+    elementnew.classList.add("active");
+}
+
+function exerciseDone() {
+    console.log("Changing");
+    document.getElementById("exercisebar").style.width = "100%";
+    document.getElementById("exercisebar").innerHTML = "3/3";
+    document.getElementById("exercisebar1").style.width = "100%";
+    document.getElementById("exercisebar1").innerHTML = "10/10s";
+    document.getElementById("exercisebar2").style.width = "70%";
+    document.getElementById("exercisebar2").innerHTML = "2/3";
+}
+
 function moveRobot() {
     connection.write("moveForward(500);\n");
 }
