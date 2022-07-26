@@ -956,7 +956,6 @@ function countReps() {
     current = next;
   }, 3000); //Assuming that each rep takes about 3 seconds, change if needed. It just samples every 3 seconds to see if the person is performing a rep.
 }
-<<<<<<< HEAD
 
 function rgbLed(x, y, z){
   var normx = x/255;
@@ -972,5 +971,4 @@ function rgbOff(){
   analogWrite(D5, 1);
   analogWrite(D14, 1);
 }
-=======
->>>>>>> 17afd8f94a7d043872bd96758e84f987f8c746df
+
