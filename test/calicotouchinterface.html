@@ -16,15 +16,29 @@
     <!-- <a class="btn btn-info float-right btn-connected" onclick="UART.write(`locoStop();\n`)">Connect</a> -->
     <h1 class="mt-5 mb-4">Touch Interface</h1>
     <div class="row">
-      <div class="col-12">
+      <div class="col-6">
         <a class="btn btn-warning mt-2 btn-block btn-water btn-lg" onclick="UART.write(`mf();\n`);">Forward</a>
         <a class="btn btn-warning mt-2 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`mb();\n`);">Backward</a>
-        <a class="btn btn-warning mt-5 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`locoStop();\n`);">Stop</a>
+        <a class="btn btn-warning mt-2 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`locoStop();\n`);">Stop</a>
+        <a class="btn btn-warning mt-5 btn-block btn-water btn-lg" onclick="UART.write(`moveForward(1000);\n`);">1s forward</a>
+        <a class="btn btn-warning mt-2 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`moveBackward(1000);\n`);">1s backward</a>
+        <a class="btn btn-warning mt-5 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`resilienceExperimentf(1);\n`);">1 magnet B&F</a>
+        <a class="btn btn-warning mt-2 mb-3 btn-block btn-water btn-lg" onclick="UART.write(`stopExperiment();\n`);">Stop BF</a>
 
-        <a class="btn btn-warning mt-5 btn-block btn-water btn-lg" onclick="UART.write(`LED2.write(1);\n`);">LED On</a>
-        <a class="btn btn-warning mt-2 btn-block btn-water btn-lg" onclick="UART.write(`LED2.write(0);\n`);">LED Off</a>
+      </div>
+      <div class="col-6">
+        <a class="btn btn-warning mt-2 btn-block btn-water btn-lg" onclick="UART.write(`rgbLed(255,255,255);\n`);">LED On</a>
+        <a class="btn btn-warning mt-2 btn-block btn-water btn-lg" onclick="UART.write(`rgbLed(0,0,0);\n`);">LED Off</a>
 
-        <a class="btn btn-warning mt-5 btn-block btn-water btn-lg" onclick="UART.write(`notification(2000);\n`);">Notification</a>
+        <div class="slidecontainer mt-4">
+          <input type="range" min="0" max="255" value="0" class="slider sliderRed mt-2" id="Red">
+          <input type="range" min="0" max="255" value="0" class="slider sliderGreen mt-2" id="Green">
+          <input type="range" min="0" max="255" value="0" class="slider sliderBlue mt-2" id="Blue">
+        </div>
+
+        <a class="btn btn-warning mt-3 btn-block btn-water btn-lg" onclick="rgb();">Update RGB</a>
+
+        <a class="btn btn-warning mt-3 btn-block btn-water btn-lg mb-5" onclick="UART.write(`notification(2000);\n`);">Notification (buggy)</a>
       </div>
     </div>
     <!-- 

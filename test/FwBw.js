@@ -579,12 +579,11 @@ function stopAtHallbb(x) {
 }
 
 function notification(a) {
-  LED2.write(1);
   setInterval(function () {
     moveForward(30);
     setTimeout('moveBackward(30);', 40);
   }, 100);
-  setTimeout('clearInterval(); locoStop(); LED2.write(0);', a);
+  setTimeout('clearInterval(); locoStop();', a);
 }
 
 function turntablef() {
@@ -612,20 +611,58 @@ function readIMU(m) {
   var data = mpu.read();
   switch (m) {
     case 'accelx':
-      return data.accel.x;
+    return data.accel.x;
     case 'accely':
-      return data.accel.y;
+    return data.accel.y;
     case 'accelz':
-      return data.accel.z;
+    return data.accel.z;
     case 'gyrox':
-      return data.gyro.x;
+    return data.gyro.x;
     case 'gyroy':
-      return data.gyro.y;
+    return data.gyro.y;
     case 'gyroz':
-      return data.gyro.z;
+    return data.gyro.z;
     default:
-      return data;
+    return data;
   }
+}
+
+function printIMU(m) {
+  var x;
+  setInterval(function() {
+    var data = mpu.read();
+    switch (m) {
+      case 'accelx':
+      return data.accel.x;
+      case 'accely':
+      return data.accel.y;
+      case 'accelz':
+      return data.accel.z;
+      case 'gyrox':
+      return data.gyro.x;
+      case 'gyroy':
+      return data.gyro.y;
+      case 'gyroz':
+      return data.gyro.z;
+      default:
+      return data;
+    }
+  }, 100);
+}
+
+function magPrint() {
+  setInterval(function() {
+    var data = mpu.read();
+    var accelx = data.accel.x * data.accel.x;
+    var accely = data.accel.y * data.accel.y;
+    var accelz = data.accel.z * data.accel.z;
+    var accel = accelx + accely + accelz;
+    var gyrox = data.gyro.x * data.gyro.x;
+    var gyroy = data.gyro.y * data.gyro.y;
+    var gyroz = data.gyro.z * data.gyro.z;
+    var gyro = gyrox + gyroy + gyroz;
+    console.log(accelx+","+ accely +","+ accelz);
+  }, 100);
 }
 
 var accelDiff;
@@ -653,7 +690,7 @@ function imuString() {
     var str_imu = JSON.stringify(imur);
     console.log(str_imu);
   }
-    , 70);
+  , 70);
 }
 
 function resilienceCountb(m) {
@@ -909,9 +946,9 @@ function countReps() {
     accelDiff = Math.sqrt(tempDiff * tempDiff);
     if (accelDiff > 0.3) { //Change this based on how it's working. 
       console.log(accelDiff);
-      reps++;
-      if (reps > 8){
-        console.log("8 reps done");
+    reps++;
+    if (reps > 8){
+      console.log("8 reps done");
         clearInterval(); //Stops counting after 8 reps. 
         exrFlag = 1; //Global variable to indicate that a set of 8 reps is done. 
       }
@@ -919,3 +956,21 @@ function countReps() {
     current = next;
   }, 3000); //Assuming that each rep takes about 3 seconds, change if needed. It just samples every 3 seconds to see if the person is performing a rep.
 }
+<<<<<<< HEAD
+
+function rgbLed(x, y, z){
+  var normx = x/255;
+  var normy = y/255;
+  var normz = z/255;
+  analogWrite(D6, 1-normx);
+  analogWrite(D5, 1-normy);
+  analogWrite(D14, 1-normz);
+}
+
+function rgbOff(){
+  analogWrite(D6, 1);
+  analogWrite(D5, 1);
+  analogWrite(D14, 1);
+}
+=======
+>>>>>>> 17afd8f94a7d043872bd96758e84f987f8c746df
