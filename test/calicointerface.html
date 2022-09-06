@@ -3,9 +3,9 @@
  </head>
  <body>
   <script src="https://www.espruino.com/js/uart.js"></script>
-  <script src="/Users/anupsathya/Research/calico/test/WebFunctions.js"></script>
-  <script src="/Users/anupsathya/Research/calico/test/GraphTraversal.js"></script>
-  <script src="/Users/anupsathya/Research/calico/test/KeyControl.js"></script>
+  <script src="https://raw.githack.com/anupsathya/calico/main/test/WebFunctions.js"></script>
+  <script src="https://raw.githack.com/anupsathya/calico/main/test/GraphTraversal.js"></script>
+  <script src="https://raw.githack.com/anupsathya/calico/main/test/KeyControl.js"></script>
   <button onclick="console.log('moving'); UART.write(`moveForward(${speedx});\n`); ">Forward</button>
   <button onclick="UART.write(`moveBackward(${speedx});\n`);">Backward</button>
   <button onclick="UART.write(`stopExperiment();\n`);">STOP</button>
